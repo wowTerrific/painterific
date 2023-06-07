@@ -37,4 +37,19 @@ pub fn paint(color: Colors, txt: &str) -> io::Result<()> {
     handle.write_all(&full_line_in_bytes)?;
 
     Ok(())
+
 }
+
+
+fn paint_py(_: Python, color: Colors, txt: &str) -> PyResult<bool> {
+    match paint(color, txt) {
+        Ok(_) => Ok(true),
+        Err(e) => panic!("There was an issue with Painter: {e}")
+    }
+}
+
+py_module_initializer!(painterific, initpainterific, Pyinit_painterific, |py, m| {
+    m.add(py, "__doc__", "This module is implemented in Rust.")?;
+    m.add(py, "painterific", py_fn!(py, paint_py(color: Colors, txt: &str)))?;  // FromPyObject<_> is not implemented for 'Colors'
+    Ok(())
+});
