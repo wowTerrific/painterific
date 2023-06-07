@@ -25,9 +25,3 @@ fn main() {
     paint(Colors::White, "WHITE:").unwrap();
     println!(" This is the White line.\n");
 }
-
-
-let a: i32 = 5;
-
-let b = String::from("hello world!");
-b.push_str("Hey Chase");
