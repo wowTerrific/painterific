@@ -1,3 +1,7 @@
+#[macro_use]
+extern crate cpython;
+
+use cpython::{PyResult, Python};
 use std::io::{self, Write};
 
 pub enum Colors {
@@ -33,5 +37,4 @@ pub fn paint(color: Colors, txt: &str) -> io::Result<()> {
     handle.write_all(&full_line_in_bytes)?;
 
     Ok(())
-
 }
