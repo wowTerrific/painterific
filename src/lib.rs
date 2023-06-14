@@ -43,7 +43,7 @@ pub fn paint(color: &str, txt: &str) -> io::Result<()> {
 
 }
 
-[#pymodule]
+
 fn paint_py(_: Python, color: &str, txt: &str) -> PyResult<bool> {
     match paint(color, txt) {
         Ok(_) => Ok(true),
