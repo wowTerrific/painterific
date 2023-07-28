@@ -11,7 +11,7 @@ pub enum Colors {
     White,
 }
 
-pub fn paint(color: Colors, txt: &str) -> io::Result<()> {
+pub fn paint(color: Colors, txt: &str) {
     let color_code = match color {
         Colors::Black => b"\x1b[30m",
         Colors::Red => b"\x1b[31m",
@@ -30,8 +30,9 @@ pub fn paint(color: Colors, txt: &str) -> io::Result<()> {
     let stdout = io::stdout();
     let mut handle = stdout.lock();
 
-    handle.write_all(&full_line_in_bytes)?;
-
-    Ok(())
+    if let Err(e) = handle.write_all(&full_line_in_bytes) {
+        panic!("There is an issue with painterific: {:?}", e);
+    }
+    handle.flush().expect("Could not flush buffer stream from `painterific`");
 
 }
